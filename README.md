@@ -1,19 +1,17 @@
-# Ex.No:2 To create a HelloWorld Activity using all lifecycles methods to display messages.
-
+# Ex.No:3a Develop program to create a text field and a button “Navigate”. When you enter “www.gmail.com” and press navigate button it should open google page using Implicit Intents.
 
 ## AIM:
 
-To create a HelloWorld Activity using all lifecycles methods to display messages using Android Studio.
+To create a navigate button using Implicit Intent to display the gmail page using Android Studio.
 
 ## EQUIPMENTS REQUIRED:
 
 Latest Version Android Studio
 
 ## ALGORITHM:
-
 Step 1: Open Android Stdio and then click on File -> New -> New project.
 
-Step 2: Then type the Application name as HelloWorld and click Next. 
+Step 2: Then type the Application name as ImplicitIntent and click Next.
 
 Step 3: Then select the Minimum SDK as shown below and click Next.
 
@@ -25,18 +23,17 @@ Step 6: Display message give in MainActivity file.
 
 Step 7: Save and run the application.
 
-## PROGRAM:
 
+## PROGRAM:
 ```
 /*
-Program to print the text “Hello World”.
+Program to print the text “Implicitintent”.
 Developed by: Ann Blessy Philips
 Registeration Number : 212222040008
 */
 ```
 
-### In activitymain.xml
-
+### In activity_main.xml
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -49,118 +46,96 @@ Registeration Number : 212222040008
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="cursive"
-        android:text="Hello World!"
-        android:textColor="#630C71"
+        android:fontFamily="sans-serif-black"
+        android:text="Implicit Intent"
+        android:textColor="#673AB7"
         android:textSize="34sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.53" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="336dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="92dp"
+        android:ems="10"
+        android:hint="Enter the URL"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="158dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="192dp"
+        android:text="CHECK"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+
 ### In MainActivity.java
 ```
-package com.example.methods;
+package com.example.implicitintent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EditText e1;
+        Button btn;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast toast = Toast.makeText(getApplicationContext(), "onCreate Called", Toast.LENGTH_LONG);
-        toast.show();
-    }
-    protected void onRestart() {
-        // It will show a message on the screen
-        // then onRestart is invoked
-        super.onRestart();
-        Toast toast = Toast.makeText(getApplicationContext(), "onRestart Called", Toast.LENGTH_LONG);
-        toast.show();
-    }
-    protected void onResume() {
-        // It will show a message on the screen
-        // then onResume is invoked
-        super.onResume();
-        Toast toast = Toast.makeText(getApplicationContext(), "onResume Called", Toast.LENGTH_LONG);
-        toast.show();
-    }
-    protected void onPause() {
-        // It will show a message on the screen
-        // then onPause is invoked
-        super.onPause();
-        Toast toast = Toast.makeText(getApplicationContext(), "onPause Called", Toast.LENGTH_LONG);
-        toast.show();
-    }
-    protected void onStop() {
-        // It will show a message on the screen
-        // then onStop is invoked
-        super.onStop();
-        Toast toast = Toast.makeText(getApplicationContext(), "onStop Called", Toast.LENGTH_LONG);
-        toast.show();
-    }
-    protected void onDestroy() {
-        // It will show a message on the screen
-        // then onDestroy is invoked
-        super.onDestroy();
-        Toast toast = Toast.makeText(getApplicationContext(), "onDestroy Called", Toast.LENGTH_LONG);
-        toast.show();
+
+        btn = findViewById(R.id.button);
+        e1 = findViewById(R.id.editText);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url= e1.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 }
 ```
 
-### In AndroidManifest.xml
-
-```
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Methods"
-        tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
-</manifest>
-```
-
 ## OUTPUT
 
-![IMG-20240311-WA0009](https://github.com/AnnBlessy/lifecyclemethods/assets/119477835/5c5a3aa6-e307-404c-b2b4-bdd0e10c824a)
+![WhatsApp Image 2024-03-11 at 09 47 03_43874b10](https://github.com/AnnBlessy/ImplicitIntent-MAD/assets/119477835/87d69a19-c14b-45b4-bf53-a1e2eefbdd35)
 
-![IMG-20240311-WA0006](https://github.com/AnnBlessy/lifecyclemethods/assets/119477835/c89ac1da-37f2-4af8-a50e-9980354bae4b)
-
-![IMG-20240311-WA0008](https://github.com/AnnBlessy/lifecyclemethods/assets/119477835/79543d2c-8175-4ffa-a477-c5d577c1cf8c)
-
-![IMG-20240311-WA0010](https://github.com/AnnBlessy/lifecyclemethods/assets/119477835/733b65b9-7e3b-401a-8e77-01c78a1f722c)
-
-![IMG-20240311-WA0007](https://github.com/AnnBlessy/lifecyclemethods/assets/119477835/e71dd5eb-9ac1-4581-894a-2a9cc2a2bf26)
+![WhatsApp Image 2024-03-11 at 09 47 03_70a24ba6](https://github.com/AnnBlessy/ImplicitIntent-MAD/assets/119477835/6448ccff-a8d3-4b4a-ad05-14eafc89a973)
 
 
 
 ## RESULT
-Thus a Simple Android Application create a HelloWorld Activity using all lifecycles methods to display messages using Android Studio is developed and executed successfully.
+Thus a Simple Android Application create a navigate button using Implicit Intent to display the gmail page using Android Studio is developed and executed successfully.
+
+
+
+
+
